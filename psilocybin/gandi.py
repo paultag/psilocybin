@@ -5,10 +5,12 @@ class GandiProxy:
     def __init__(self, apikey):
         self.api = xmlrpc.client.ServerProxy('https://rpc.ote.gandi.net/xmlrpc')
         self.apikey = apikey
-        self.version = self._call(self.api.version.info)
 
     def _call(self, func, *args, **kwargs):
         return func(self.apikey, *args, **kwargs)
+
+    def get_version(self):
+        return self._call(self.api.version.info)
 
     def get_zones(self):
         return self._call(self.api.domain.zone.list)
